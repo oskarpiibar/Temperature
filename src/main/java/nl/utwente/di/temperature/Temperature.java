@@ -1,23 +1,23 @@
-package nl.utwente.di.bookQuote;
+package nl.utwente.di.temperature;
 
 import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
-/** Example of a Servlet that gets an ISBN number and returns the book price
+/** Example of a Servlet that gets a temperature in Celsius and returns it in Farenheit
  */
 
 
-public class BookQuote extends HttpServlet {
+public class Temperature extends HttpServlet {
 
  	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Quoter quoter;
+	private Temperaturer temperaturer;
 	
     public void init() throws ServletException {
-    	quoter = new Quoter();
+    	temperaturer = new Temperaturer();
     }	
 	
   public void doGet(HttpServletRequest request,
@@ -26,7 +26,7 @@ public class BookQuote extends HttpServlet {
 
     response.setContentType("text/html");
     PrintWriter out = response.getWriter();
-    String title = "Book Quote";
+    String title = "Temperature Conventer";
     
     // Done with string concatenation only for the demo
     // Not expected to be done like this in the project
@@ -37,10 +37,10 @@ public class BookQuote extends HttpServlet {
                 		"</HEAD>\n" +
                 "<BODY BGCOLOR=\"#FDF5E6\">\n" +
                 "<H1>" + title + "</H1>\n" +              
-                "  <P>ISBN number: " +
-                   request.getParameter("isbn") + "\n" +
-                "  <P>Price: " +
-                   quoter.getBookPrice(request.getParameter("isbn")) +
+                "  <P>Temperature in Celsius: " +
+                   request.getParameter("celsius") + "\n" +
+                "  <P>In Farenheit: " +
+                   temperaturer.getFarenheitTemp(Double.parseDouble(request.getParameter("celsius"))) +
                 "</BODY></HTML>");
   }
 }
